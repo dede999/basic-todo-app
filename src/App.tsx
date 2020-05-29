@@ -80,7 +80,7 @@ class App extends React.Component {
           <ToDoContext.Consumer>
             {({ task_list, add_task }) => (
               <div className="content">
-                <div className="title_box">
+                <div className="title-box">
                   <Input
                     defaultValue={this.state.title}
                     name="title"
