@@ -3,6 +3,7 @@ import React from 'react'
 import SendIcon from '@material-ui/icons/Send'
 import { Input, Button } from '@material-ui/core'
 import ToDoContext, { ITask } from './providers/ToDoContext'
+import TaskView from './components/TaskView'
 
 class App extends React.Component {
 
@@ -43,8 +44,7 @@ class App extends React.Component {
     )
     this.setState({
       task_list: this.state.task_list.splice(index, 1, task)
-    })
-    this.save_in_localStorage()
+    }, () => this.save_in_localStorage())
   }
   
   remove_task = (task_title: string) => {
@@ -53,8 +53,7 @@ class App extends React.Component {
     )
     this.setState({
       task_list: this.state.task_list.splice(index, 1)
-    })
-    this.save_in_localStorage()
+    }, () => this.save_in_localStorage())
   }
 
   set_field = (e: any) => {
@@ -63,8 +62,6 @@ class App extends React.Component {
       [name]: value
     })
   }
-
-
 
   render() {
     return (
@@ -91,7 +88,9 @@ class App extends React.Component {
                   </Button>
                 </div>
                 <div className="task-list">
-                  { task_list.map((task) => <p> {task.title} </p>) }
+                  { task_list.map((task, i) =>
+                    <TaskView a_task={task} key={i} />
+                  ) }
                 </div>
               </div>
             )}
