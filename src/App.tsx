@@ -38,12 +38,14 @@ class App extends React.Component {
     }, () => this.save_in_localStorage())
   }
 
-  edit_task = (task: ITask) => {
+  edit_task = (task: ITask, original: string) => {
     const index = this.state.task_list.findIndex(
-      (arr_task: ITask) => task.title === arr_task.title
+      (arr_task: ITask) => original === arr_task.title
     )
+    console.log(index)
+    this.state.task_list.splice(index, 1, task)
     this.setState({
-      task_list: this.state.task_list.splice(index, 1, task)
+      task_list: this.state.task_list
     }, () => this.save_in_localStorage())
   }
   
@@ -51,8 +53,9 @@ class App extends React.Component {
     const index = this.state.task_list.findIndex(
       (arr_task: ITask) => task_title === arr_task.title
     )
+    this.state.task_list.splice(index, 1)
     this.setState({
-      task_list: this.state.task_list.splice(index, 1)
+      task_list: this.state.task_list
     }, () => this.save_in_localStorage())
   }
 

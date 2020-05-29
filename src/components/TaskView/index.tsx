@@ -7,7 +7,8 @@ interface Props {
 }
 
 interface State {
-  the_task: ITask
+  the_task: ITask,
+  original_task: string
 }
 
 export default class TaskView extends React.Component<Props, State> {
@@ -15,7 +16,8 @@ export default class TaskView extends React.Component<Props, State> {
     the_task: {
       title: "",
       is_complete: false
-    }
+    },
+    original_task: ""
   }
   
   componentDidMount() {
@@ -24,12 +26,15 @@ export default class TaskView extends React.Component<Props, State> {
       the_task: {
         title: title,
         is_complete: is_complete
-      }
+      },
+      original_task: title
     })
   }
 
   render() {
     const { title, is_complete } = this.state.the_task
+    const { original_task, the_task } = this.state
+
     return(
       <ToDoContext.Consumer>
         {({edit_task, remove_task}) => (
@@ -40,12 +45,12 @@ export default class TaskView extends React.Component<Props, State> {
                 the_task: { title: title, is_complete: !is_complete }
               })} />
             <Input
-              defaultValue={title}
+              placeholder={title}
               onChange={(e: any) => this.setState({
                 the_task: { title: e.target.value, is_complete: is_complete }
               })} />
             <div className="actions">
-              <Button onClick={() => edit_task(this.state.the_task)}>
+              <Button onClick={() => edit_task(the_task, original_task)}>
                 Save
               </Button>
               <Button onClick={() => remove_task(title)}>
