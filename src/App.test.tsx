@@ -1,19 +1,8 @@
 import App from './App'
 import React from 'react'
-import { render, cleanup, fireEvent } from '@testing-library/react'
-
-const setup = (label: string) => {
-  const utils = render(<App />)
-  const input = utils.getByLabelText(label)
-  return {
-    input,
-    ...utils,
-  }
-}
+import { render, screen, fireEvent } from '@testing-library/react'
 
 describe("App.tsx", () => {
-  
-  afterEach(cleanup)
 
   it("should be able to render the component", () => {
     const { asFragment } = render(<App />)
@@ -21,40 +10,41 @@ describe("App.tsx", () => {
   })
 
   it("should create a task and show it", () => {
-    const { getByText, getAllByText } = render(<App />)
-    const element = getByText(/create/i)
+    render(<App />)
+    const element = screen.getByText(/create/i)
     fireEvent.click(element)
-    expect(getAllByText(/delete/i)).toHaveLength(1)
+    expect(screen.getAllByText(/delete/i)).toHaveLength(1)
   })
 
   it ("should be able to update some task", () => {
-    const { getByText, getAllByText, getByTestId } = render(<App />)
-    fireEvent.click(getByText(/create/i))
-    const edit = getAllByText(/edit/i)[0]
+    render(<App />)
+    fireEvent.click(screen.getByText(/create/i))
+    const edit = screen.getAllByText(/edit/i)[0]
    
     // start editing
     fireEvent.click(edit)
-    fireEvent.change(getByTestId(/editing/), {
+    fireEvent.change(screen.getByTestId(/editing/), {
       target: { value: "My Super Task" }
     })
-    fireEvent.click(getAllByText(/save/i)[0])
+    fireEvent.click(screen.getAllByText(/save/i)[0])
     // done editing
      
-    expect(getByText(/^My/i)).toBeTruthy
+    expect(screen.getByText(/^My/i)).toBeTruthy
   })
 
   it ("should delete a task", () => {
-    const { getByText, getAllByText, getByTestId } = render(<App />)
+    render(<App />)
 
-    fireEvent.change(getByTestId(/creating/), {
+    fireEvent.change(screen.getByTestId(/creating/), {
       target: { value: "My Super Test" }
     })
-    fireEvent.click(getByText(/create/i))
-    const number_of_itens = getAllByText(/edit/i).length
+    
+    fireEvent.click(screen.getByText(/create/i))
+    const number_of_itens = screen.getAllByText(/edit/i).length
     console.log(number_of_itens)
 
     // deleting an item
-    fireEvent.click(getAllByText(/delete/i)[0])
-    expect(getAllByText(/edit/i).length).toBeLessThan(number_of_itens)
+    fireEvent.click(screen.getAllByText(/delete/i)[0])
+    expect(screen.getAllByText(/edit/i).length).toBeLessThan(number_of_itens)
   })
 })
