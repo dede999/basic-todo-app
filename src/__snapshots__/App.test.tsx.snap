@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App.tsx should be able to render the component 1`] = `
+<DocumentFragment>
+  <h1>
+     Basic ToDo 
+  </h1>
+  <div
+    class="container"
+  >
+    <div
+      class="content"
+    >
+      <div
+        class="title-box"
+      >
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-input title"
+        >
+          <input
+            class="MuiInputBase-input MuiInput-input"
+            name="title"
+            type="text"
+            value="Some task ..."
+          />
+        </div>
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-outlined"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="MuiButton-label"
+          >
+            Create
+          </span>
+          <span
+            class="MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+      <div
+        class="task-list"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

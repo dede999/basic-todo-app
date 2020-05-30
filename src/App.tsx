@@ -1,15 +1,14 @@
 import './App.sass'
 import React from 'react'
-import SendIcon from '@material-ui/icons/Send'
+import TaskView from './components/TaskView'
 import { Input, Button } from '@material-ui/core'
 import ToDoContext, { ITask } from './providers/ToDoContext'
-import TaskView from './components/TaskView'
 
 class App extends React.Component {
 
   state = {
     task_list: [] as ITask[],
-    title: ""
+    title: "Some task ..."
   }
 
   componentDidMount() {
@@ -34,7 +33,7 @@ class App extends React.Component {
         title: this.state.title,
         is_complete: false
       }],
-      title: ""
+      title: "Some Task ..."
     }, () => this.save_in_localStorage())
   }
 
@@ -42,7 +41,6 @@ class App extends React.Component {
     const index = this.state.task_list.findIndex(
       (arr_task: ITask) => original === arr_task.title
     )
-    console.log(index)
     this.state.task_list.splice(index, 1, task)
     this.setState({
       task_list: this.state.task_list
@@ -50,13 +48,15 @@ class App extends React.Component {
   }
   
   remove_task = (task_title: string) => {
-    const index = this.state.task_list.findIndex(
-      (arr_task: ITask) => task_title === arr_task.title
+    const new_list = this.state.task_list.filter(
+      (arr_task: ITask) => task_title !== arr_task.title
     )
-    this.state.task_list.splice(index, 1)
     this.setState({
-      task_list: this.state.task_list
-    }, () => this.save_in_localStorage())
+      task_list: new_list
+    }, () => {
+      this.save_in_localStorage()
+      window.location.reload()
+    })
   }
 
   set_field = (e: any) => {
@@ -87,7 +87,7 @@ class App extends React.Component {
                     className="MuiInputBase-input title"
                     onChange={(e: any) => this.set_field(e)} />
                   <Button variant="outlined" onClick={add_task}>
-                    <SendIcon/>
+                    Create
                   </Button>
                 </div>
                 <div className="task-list">
