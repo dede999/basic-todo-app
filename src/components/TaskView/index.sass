@@ -2,7 +2,8 @@
   display: flex
   justify-content: space-between
   align-items: center
-  height: 55px
+  height: 60px
+  margin-top: 10px
   .main
     margin-left: 25px
   .actions
@@ -12,7 +13,14 @@
 
 
 .incomplete
-  background-color: hsla(0, 70%, 80%, .6)
+  background-color: hsl(45, 100%, 80%)
+  border: 3px outset hsl(45, 100%, 65%)
+  .title
+    font-weight: bolder
+
 
 .complete
-  background-color: hsla(180, 70%, 80%, .6)
+  background-color: hsl(45, 100%, 90%)
+  font-weight: lighter
+  .title
+    text-decoration: line-through wavy
