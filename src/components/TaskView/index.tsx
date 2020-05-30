@@ -46,19 +46,22 @@ export default class TaskView extends React.Component<Props, State> {
     return(
       <ToDoContext.Consumer>
         {({edit_task, remove_task}) => (
-          <div className={`task-list-item ${this.complete_class()}`}>
+          // eslint-disable-next-line jsx-a11y/aria-role
+          <div role="task"
+            className={`task-list-item ${this.complete_class()}`}>
             <div className="main">
               { edition_mode 
                 ? <>
                     <Checkbox 
                       checked={is_complete}
                       color="primary"
-                      onChange={(e: any) => this.setState({
+                      onChange={() => this.setState({
                         the_task: { title: title, is_complete: !is_complete }
                       })} 
                     />
                     <Input
                       placeholder={title}
+                      inputProps={{ "data-testid": "editing" }}
                       onChange={(e: any) => this.setState({
                         the_task: { title: e.target.value, is_complete: is_complete }
                       })} 

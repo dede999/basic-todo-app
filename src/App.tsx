@@ -84,6 +84,7 @@ class App extends React.Component {
                   <Input
                     defaultValue={this.state.title}
                     name="title"
+                    inputProps={{ "data-testid": "creating" }}
                     className="MuiInputBase-input title"
                     onChange={(e: any) => this.set_field(e)} />
                   <Button variant="outlined" onClick={add_task}>
@@ -92,7 +93,9 @@ class App extends React.Component {
                 </div>
                 <div className="task-list">
                   { task_list.map((task, i) =>
-                    <TaskView a_task={task} key={i} />
+                    <TaskView 
+                      a_task={task} 
+                      key={i} />
                   ) }
                 </div>
               </div>
